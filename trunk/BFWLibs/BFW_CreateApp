@@ -1,0 +1,76 @@
+#! /usr/bin/php
+<?php
+/**
+ * create app
+ * @author Junbo Bao <baojunbo@gmail.com>
+ * @create on: 2011-06-18
+ * @example: BFW_CreateApp webPath=xxxx OR /usr/local/php5/bin/php phpBFW_CreateApp webPath=xxxx
+ * $Id$
+ */
+
+$libPath = dirname(__FILE__);
+$pathArr = explode('=', $argv[1]);
+$keyword = strtolower($pathArr[0]);
+$$keyword = $pathArr[1];
+
+if (!$webpath) die("Lost param webPath!\n");
+
+require $libPath . '/BFW_FileDir.class.php';
+require $libPath . '/BFW_File.class.php';
+
+$pathArr = explode('/', $webpath);
+foreach($pathArr as $dir) {
+	$dir = trim($dir);
+	if ($dir) $dirPath .= '/' . $dir;
+}
+$webpath = $dirPath;
+
+$wwwPath  = $webpath . '/www';
+$confPath = $webpath . '/Conf';
+$daoPath  = $webpath . '/Dao';
+$objPath  = $webpath . '/Object';
+$modPath  = $webpath . '/Module';
+$tplPath  = $webpath . '/Tpl';
+$logPath  = $webpath . '/Log';
+$dataPath = $webpath . '/Data';
+
+BFW_FileDir::createDir($wwwPath);
+BFW_FileDir::createDir($confPath);
+BFW_FileDir::createDir($daoPath);
+BFW_FileDir::createDir($objPath);
+BFW_FileDir::createDir($modPath);
+BFW_FileDir::createDir($modPath . '/Index');
+BFW_FileDir::createDir($tplPath);
+BFW_FileDir::createDir($logPath);
+BFW_FileDir::createDir($dataPath);
+
+$indexModContent = '<?php' . "\n";
+$indexModContent .= '/**' . "\n";
+$indexModContent .= ' * @author BFW_CreateApp' . "\n";
+$indexModContent .= ' * @create on: ' . date('Y-m-d H:i:s') . "\n";
+$indexModContent .= ' */' . "\n";
+$indexModContent .= 'final class Mod_Index extends BFW_Module {' . "\n";
+$indexModContent .= '	public function run() {' . "\n";
+$indexModContent .= '		echo \'hello bfw!\';' . "\n";
+$indexModContent .= '	}' . "\n";
+$indexModContent .= '}' . "\n";
+BFW_File::write($modPath . '/Index/Mod_Index.mod.php', $indexModContent);
+
+$indexContent = '<?php' . "\n";
+$indexContent.= '/**' . "\n";
+$indexContent.= ' * index.php' . "\n";
+$indexContent.= ' * @author BFW_CreateApp' . "\n";
+$indexContent.= ' * @create on: ' . date('Y-m-d H:i:s') . "\n";
+$indexContent.= ' */' . "\n";
+$indexContent.= 'define(\'BFWLIB_PATH\', \'' . $libPath . '\');' . "\n";
+$indexContent.= 'define(\'OBJECT_PATH\', \'' . $objPath . '\');' . "\n";
+$indexContent.= 'define(\'MODULE_PATH\', \'' . $modPath . '\');' . "\n";
+$indexContent.= 'define(\'CONFIG_PATH\', \'' . $confPath . '\');' . "\n";
+$indexContent.= 'define(\'TPL_PATH\', \'' . $tplPath . '\');' . "\n";
+$indexContent.= 'define(\'DATA_PATH\', \'' . $dataPath . '\');' . "\n";
+$indexContent.= 'define(\'LOG_PATH\', \'' . $logPath . '\');' . "\n\n";
+$indexContent.= 'require_once BFWLIB_PATH . \'/BFrameWork.php\';' . "\n";
+$indexContent.= 'BFW_App::run();';
+BFW_File::write($wwwPath . '/index.php', $indexContent);
+
+echo "create app succeed!\n";
