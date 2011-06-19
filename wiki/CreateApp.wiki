@@ -1,4 +1,4 @@
-#summary How to create app
+#summary 创建新项目
 
 = 如何创建一个新的项目 =
 
