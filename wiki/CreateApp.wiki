@@ -3,8 +3,6 @@
 = 如何创建一个新的项目 =
 
 cd /var/www/BFrameWork/BFWLibs<br />
-1. 直接运行BFW_CreateApp<br />
- ./BFW_CreateApp webPath=/var/www/test/ <br />
- 如果不能正常运行请修改BFW_CreateApp中的内容: #! /usr/bin/php <br />
+1. 直接运行BFW_CreateApp<br /> ./BFW_CreateApp webPath=/var/www/test/ <br /> 如果不能正常运行请修改BFW_CreateApp中的内容: #! /usr/bin/php <br />
 
 2. /usr/bin/php BFW_CreateApp webPath=/var/www/test/
