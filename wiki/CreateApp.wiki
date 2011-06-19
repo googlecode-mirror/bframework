@@ -1,6 +1,6 @@
 #summary How to create app
 
-= Introduction =
+= 如何创建一个新的项目 =
 
 Add your content here.
 
