@@ -4,7 +4,7 @@
 
 cd /var/www/BFrameWork/BFWLibs
  * 直接运行BFW_CreateApp
-   # ./BFW_CreateApp webPath=/var/www/test/
-   # 如果不能正常运行请修改BFW_CreateApp中的内容: #! /usr/bin/php
+ ./BFW_CreateApp webPath=/var/www/test/ <br />
+ 如果不能正常运行请修改BFW_CreateApp中的内容: #! /usr/bin/php <br />
 
  * /usr/bin/php BFW_CreateApp webPath=/var/www/test/
