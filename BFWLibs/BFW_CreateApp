@@ -18,21 +18,22 @@ if (!$webpath) die("Lost param webPath!\n");
 require $libPath . '/BFW_FileDir.class.php';
 require $libPath . '/BFW_File.class.php';
 
-$pathArr = explode('/', $webpath);
+$dirBreak = (PHP_OS == 'WINNT') ? '\\' : '/';
+$pathArr = explode($dirBreak, $webpath);
 foreach($pathArr as $dir) {
-	$dir = trim($dir);
-	if ($dir) $dirPath .= '/' . $dir;
+	if ($dir) $dirArr[] = $dir;
 }
-$webpath = $dirPath;
+$webpath = join($dirBreak, $dirArr) . $dirBreak;
+if (PHP_OS != 'WINNT') $webpath = $dirBreak . $webpath;
 
-$wwwPath  = $webpath . '/www';
-$confPath = $webpath . '/Conf';
-$daoPath  = $webpath . '/Dao';
-$objPath  = $webpath . '/Object';
-$modPath  = $webpath . '/Module';
-$tplPath  = $webpath . '/Tpl';
-$logPath  = $webpath . '/Log';
-$dataPath = $webpath . '/Data';
+$wwwPath  = $webpath . 'www';
+$confPath = $webpath . 'Conf';
+$daoPath  = $webpath . 'Dao';
+$objPath  = $webpath . 'Object';
+$modPath  = $webpath . 'Module';
+$tplPath  = $webpath . 'Tpl';
+$logPath  = $webpath . 'Log';
+$dataPath = $webpath . 'Data';
 
 BFW_FileDir::createDir($wwwPath);
 BFW_FileDir::createDir($confPath);
