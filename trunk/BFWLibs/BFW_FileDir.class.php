@@ -12,13 +12,14 @@ final class BFW_FileDir {
 
 	static public function createDir($dirName, $mode = 0755, $recursive = false) {
 		if (!is_dir($dirName)) {
-			$dirArr = explode('/', $dirName);
+			$dirBreak   = (PHP_OS == 'WINNT') ? '\\' : '/';
+			$linuxBreak = (PHP_OS != 'WINNT') ? '/'  : '';
+			$dirArr = explode($dirBreak, $dirName);
 			if ($dirArr) {
-				array_shift($dirArr);
 				foreach($dirArr as $dir) {
 					$dir = trim($dir);
 					if ($dir) {
-						$dirPath .= '/' . $dir;
+						$dirPath .= $linuxBreak . $dir . $dirBreak;
 						if (!is_dir($dirPath)) {
 							if (!mkdir($dirPath, $mode, $recursive)) {
 								echo 'create dir ' . $dirPath . ' failed' . "\n";
