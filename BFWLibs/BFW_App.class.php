@@ -12,7 +12,10 @@ final class BFW_App {
 		$initMemory = memory_get_usage();
 
 		$mod    = BFW_Request::get(MOD_TAG);
-		$module = end(explode('.', $mod));
+		if ($mod) {
+			$modArr = explode('.', $mod);
+			$module = end($modArr);
+		}
 		$method = (strstr($mod, '.')) ? $module : __FUNCTION__;
 		$module = BFW_Controler::newModle();
 		if ($module) $module->$method();
@@ -24,7 +27,7 @@ final class BFW_App {
 
 	static private function _getSqlDebug() {
 		$times = 0;
-		if (self::$appGlobal['sqlDebug']) {
+		if (isset(self::$appGlobal['sqlDebug'])) {
 			$string = '<style type="text/css">table.sqlDebug {width:auto;border-collapse: collapse;border-width:1px 0 0 1px; border-style:solid;border-color:gray;margin-top:5px;}';
 			$string .= 'table.sqlDebug caption {font-weight:bold;font-size:16px;background-color:gray;padding:5px;}';
 			$string .= 'table.sqlDebug th, table.sqlDebug td {border-width:0 1px 1px 0;border-style:solid;border-color:gray;padding:4px;}table.sqlDebug th {font-size:14px;background-color:#ccc;}';

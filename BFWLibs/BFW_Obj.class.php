@@ -9,7 +9,7 @@ final class BFW_Obj {
 	static private $objArr = array();
 
 	static public function set($class) {
-		if (!self::$objArr[$class]) {
+		if (!isset(self::$objArr[$class])) {
 			try {
 				$objDir  = OBJECT_PATH . '/' . str_replace('_', '/', $class);
 				$file = $objDir . '/Obj_' . $class . '.obj.php';

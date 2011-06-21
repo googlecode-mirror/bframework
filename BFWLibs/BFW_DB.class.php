@@ -15,7 +15,7 @@ abstract class BFW_DB {
 
 	static protected function getOne_($sql, $params = array(), $index = 0) {
 		$key = md5(__FUNCTION__ . $sql . join('', $params));
-		if (!self::$dataFromDb[$key]) {
+		if (!isset(self::$dataFromDb[$key])) {
 			self::_execute($sql, $params);
 			self::$dataFromDb[$key] = self::$sth->fetchColumn($index);
 			self::$sth->closeCursor();
@@ -25,7 +25,7 @@ abstract class BFW_DB {
 
 	static protected function getRow_($sql, $params = array()) {
 		$key = md5(__FUNCTION__ . $sql . join('', $params));
-		if (!self::$dataFromDb[$key]) {
+		if (!isset(self::$dataFromDb[$key])) {
 			self::_execute($sql, $params);
 			self::$dataFromDb[$key] = self::$sth->fetch(PDO::FETCH_ASSOC);
 			self::$sth->closeCursor();
@@ -35,7 +35,7 @@ abstract class BFW_DB {
 
 	static protected function getAll_($sql, $params = array()) {
 		$key = md5(__FUNCTION__ . $sql . join('', $params));
-		if (!self::$dataFromDb[$key]) {
+		if (!isset(self::$dataFromDb[$key])) {
 			self::_execute($sql, $params);
 			self::$dataFromDb[$key] = self::$sth->fetchAll(PDO::FETCH_ASSOC);
 			self::$sth->closeCursor();
@@ -110,9 +110,9 @@ abstract class BFW_DB {
 			$sql .= $this->primaryKey . ' = ?';
 			$params[] = $id;
 		} else {
-			if ($id['sql']) {
+			if (isset($id['sql'])) {
 				$sql .= $id['sql'];
-				if ($id['par']) $params = $id['par'];
+				if (isset($id['par'])) $params = $id['par'];
 			} else {
 				foreach($id as $key => $val) {
 					$whereArr[] = $key . ' = :' . $key;
@@ -125,6 +125,7 @@ abstract class BFW_DB {
 	}
 
 	static private function _getJoin($join) {
+		$sql = '';
 		if ($join) {
 			$sql = ' AS main ';
 			if (!is_array($join)) {

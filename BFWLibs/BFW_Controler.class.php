@@ -13,7 +13,7 @@ final class BFW_Controler {
 			if (!trim($v)) unset($modArr[$k]); else $modArr[$k] = ucfirst($v);
 		}
 		$fun = end($modArr);
-		if ($modArr[1]) array_pop($modArr);
+		if (isset($modArr[1])) array_pop($modArr);
 		$mod = join('/', $modArr);
 		try {
 			$module  = 'Mod_' . str_replace('/', '_', $mod);

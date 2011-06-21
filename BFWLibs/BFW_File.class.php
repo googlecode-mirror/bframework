@@ -25,7 +25,7 @@ final class BFW_File {
 
 	static private function _getFP($file, $mode) {
 		$fileMd5Str = md5($file);
-		if (!self::$fp[$fileMd5Str]) self::$fp[$fileMd5Str] = fopen($file, $mode);
+		if (!isset(self::$fp[$fileMd5Str])) self::$fp[$fileMd5Str] = fopen($file, $mode);
 		return self::$fp[$fileMd5Str];
 	}
 }

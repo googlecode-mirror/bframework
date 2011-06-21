@@ -21,7 +21,7 @@ final class BFW_Data extends BFW_DB {
 		}
 		$primaryId = $data[$primaryKey];
 		$key = $table . '_' . $primaryKey . '_' . $primaryId;
-		if (!self::$objArr[$key]) {
+		if (!isset(self::$objArr[$key])) {
 			self::$data[$key] = $data;
 			self::$objArr[$key] = new BFW_Data($key, $table, $primaryKey, $primaryId);
 		}
@@ -45,7 +45,7 @@ final class BFW_Data extends BFW_DB {
 	}
 
 	public function update() {
-		if (self::$setData[$this->key]) {
+		if (isset(self::$setData[$this->key])) {
 			$sqlArr = parent::_getWhereSql($this->primaryId);
 			foreach(self::$setData[$this->key] as $key => $val) {
 				if (preg_match('/[\*\+\/\%-]|^CONCAT\((.*)[,].?(.*)\)$/i', $val)) {
