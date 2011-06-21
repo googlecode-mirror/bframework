@@ -9,7 +9,7 @@ final class BFW_Dao {
 	static private $daoArr = array();
 
 	static public function set($table) {
-		if (!self::$daoArr[$table]) {
+		if (!isset(self::$daoArr[$table])) {
 			$tmpTable = ucfirst($table);
 			$file = DAO_PATH . '/' . $tmpTable . '.dao.php';
 			$class= 'Dao' . $tmpTable;

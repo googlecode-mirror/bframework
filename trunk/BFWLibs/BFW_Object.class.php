@@ -12,7 +12,7 @@ abstract class BFW_Object {
 	public function __call($method, $params) {
 		try {
 			$class = get_class($this) . '_' . ucfirst($method);
-			if (!self::$objArr[$class]) {
+			if (!isset(self::$objArr[$class])) {
 				$file = $this->objDir . '/' . $class . '.obj.php';
 				if (!file_exists($file)) throw new Exception('The file "' . $file . '" not exists!' . "\n");
 				require_once $file;

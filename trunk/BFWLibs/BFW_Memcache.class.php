@@ -56,11 +56,11 @@ final class BFW_Memcache {
 				if (is_array($v)) {
 					self::_get($v);
 				} else {
-					$v = unserialize($v) ? : $v;
+					$v = @unserialize($v) ? : $v;
 				}
 			}
 		} else {
-			$val = unserialize($val) ? : $val;
+			$val = @unserialize($val) ? : $val;
 		}
 	}
 }

@@ -18,14 +18,14 @@ abstract class BFW_DBH extends BFW_DB {
 			$pass = &$dbConfig['pass'];
 			$param= &$dbConfig['param'];
 
-			if (!BFW_DB::$pdo[$db]) {
+			if (!isset(BFW_DB::$pdo[$db])) {
 				$dsnMd5 = md5($dsn);
-				if (!self::$dbh[$dsnMd5]) self::$dbh[$dsnMd5] = new PDO($dsn, $user, $pass, $param);
+				if (!isset(self::$dbh[$dsnMd5])) self::$dbh[$dsnMd5] = new PDO($dsn, $user, $pass, $param);
 				BFW_DB::$pdo[$db] = self::$dbh[$dsnMd5];
 				BFW_DB::$pdo[$db]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				BFW_DB::$db = $db;
 			}
-			if (!self::$dbName[$db]) {
+			if (!isset(self::$dbName[$db])) {
 				self::$dbName[$db] = $dbConfig['dbName'];
 			}
 		} catch (PDOException $e) {
